@@ -44,6 +44,10 @@ bool isValid(int x, int y, int m, int n) {
 
 // Функция для поиска кратчайшего пути из лабиринта
 int shortestPath(int** maze, int sx, int sy, int m, int n) {
+    // Если начальная точка является стеной, возвращаем -1
+    if (maze[sx][sy] == 1) {
+        return -1;
+    }
     Node* head = NULL, * tail = NULL;
     int dx[] = { -1, 0, 1, 0 }; // Возможные направления движения по x
     int dy[] = { 0, 1, 0, -1 }; // Возможные направления движения по y
@@ -82,18 +86,20 @@ int shortestPath(int** maze, int sx, int sy, int m, int n) {
 
 int main() {
     // Определение лабиринта
-    int m = 5, n = 5;
+    int m = 7, n = 4;
     int** maze = new int* [m];
     for (int i = 0; i < m; i++) {
         maze[i] = new int[n];
     }
-    maze[0][0] = 1; maze[0][1] = 1; maze[0][2] = 1; maze[0][3] = 1; maze[0][4] = 1;
-    maze[1][0] = 1; maze[1][1] = 1; maze[1][2] = 0; maze[1][3] = 0; maze[1][4] = 1;
-    maze[2][0] = 1; maze[2][1] = 1; maze[2][2] = 1; maze[2][3] = 0; maze[2][4] = 1;
-    maze[3][0] = 1; maze[3][1] = 1; maze[3][2] = 1; maze[3][3] = 0; maze[3][4] = 1;
-    maze[4][0] = 1; maze[4][1] = 1; maze[4][2] = 1; maze[4][3] = 0; maze[4][4] = 0;
+    maze[0][0] = 1; maze[0][1] = 1; maze[0][2] = 1; maze[0][3] = 1; 
+    maze[1][0] = 1; maze[1][1] = 1; maze[1][2] = 1; maze[1][3] = 0; 
+    maze[2][0] = 1; maze[2][1] = 0; maze[2][2] = 0; maze[2][3] = 1; 
+    maze[3][0] = 1; maze[3][1] = 0; maze[3][2] = 1; maze[3][3] = 1;
+    maze[4][0] = 1; maze[4][1] = 0; maze[4][2] = 1; maze[4][3] = 1; 
+    maze[5][0] = 0; maze[5][1] = 0; maze[5][2] = 1; maze[5][3] = 1; 
+    maze[6][0] = 0; maze[6][1] = 0; maze[6][2] = 1; maze[6][3] = 1; 
     // Вызов функции для поиска кратчайшего пути
-    int shortest_distance = shortestPath(maze, 1, 2, m, n);
+    int shortest_distance = shortestPath(maze, 1, 0, m, n);
     // Вывод кратчайшего пути
     std::cout << "The shortest path is " << shortest_distance << std::endl;
     return 0;
